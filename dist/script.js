@@ -111,8 +111,14 @@ $(document).ready(
             accessToken = args['access_token'];
             
             // hide auth button
-            //document.getElementById('AuthButton').style.display = 'none';
+            // document.getElementById('index1').style.display = 'none';
+            //document.getElementById('index1').style.display = 'none';
+            // $("#index2").show()
             //$("AuthButton").hide()
+
+            // Hide Index1
+            document.getElementById('index1').style.display = "none";
+            document.getElementById('index2').style.display = "block";
 
             //alert("you've been authenticated")
 
