@@ -18,7 +18,7 @@
     <script src="dist/script.js"></script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2492891866286091"
-    crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script>
     
     <style>
         body {
@@ -38,9 +38,9 @@
     </div>-->
 
 <nav id="home" class="navbar navbar-dark navbar-expand-sm bg-dark nav-fill" style="padding: 8px 16px">
-    <a class="navbar-brand" style="padding: 8px 16px;">Top Tracks</a>
+    <a class="navbar-brand" style="padding: 8px 16px;" href="/">Top Tracks</a>
 
-    <div class="collapse navbar-collapse nav-fill">
+    <div class="collapse navbar-collapse nav-fill hide-me">
         <ul class="navbar-nav nav-fill">
             <li class="navbar-item">
                 <a class="nav-link" href="#about">About</a>
@@ -60,10 +60,10 @@
 </nav>
 
 <!-- Header / Home-->
-<main class="row-featurette container">
-    <div class="container row featurette text-center" style="width: 100vw; height: 50vh;">
+<main class="row-featurette container hide-me">
+    <div class="container row featurette text-center" style="width: 100vw; height: 90vh;">
         <p><div><h1 style="font-size: 60px;"><b>Top Tracks</b></h1></p>
-        <p><button class="btn btn-primary btn-outline-light" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">LOG IN</button></p>
+        <p><button class="btn btn-primary btn-outline-light" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">Log in with Spotify</button></p>
         </div>
     </div>
 
@@ -82,8 +82,8 @@
                 OH it uses Bootstrap for css stuff
             </p>
             <p>
-                This website is open source on my
-                <a href="https://github.com/Backback12/spotify-top-tracks">GitHub</a>
+                This website is open source 
+                <a href="https://github.com/Backback12/spotify-top-tracks">here.</a>
             </p>
             <p><br><h4>Why does it not look accurate?</h4>
                 uhhh i dunno maybe you just have bad music taste
@@ -103,12 +103,14 @@
         <h1><b>Privacy Policy</b></h1>
         <div>
             <p><br>
-                All your data is not saved and not shared.
+                All your data is not saved and not shared.<br>
+                All data that is retrieved only gets sent to you, nothing is stored on the server.<br>
+                No data can be retrieved without your log-in.
             </p>
             <p>
                 You can remove access to this and other apps by going to your
-                <a href="https://www.spotify.com/us/account/apps/" target="_blank">Spotify Account settings</a>
-                and clicking "Remove Access" for [INSERT NAME].
+                <a href="https://www.spotify.com/us/account/apps/" target="_blank">Spotify Account Settings</a>
+                and clicking "Remove Access" for [INSERT WEBSITE NAME].
             </p>
             <br>
         </div>

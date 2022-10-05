@@ -101,10 +101,10 @@ $(document).ready(
 
         if ('error' in args) {
             alert("Error in getting Spotify authorization");
-            //$("#go").show();
-            //$("#go").on('click', function() {
-            //    authorizeUser();
-            //});
+
+            //document.getElementById('hide-me').style.display = "block";
+
+
         } else if ('access_token' in args) {
             // USER IS AUTHENTICATED
 
@@ -117,9 +117,17 @@ $(document).ready(
             //$("AuthButton").hide()
 
             // Hide Index1
-            // document.getElementById('index1').style.display = "none";
+            //document.getElementById('hide-me').style.display = "none";
+            //document.getElementById('hide-me').style.visibility = 'hidden'; //hidden visible
+
+            // hide all hide-me elements
+            document.querySelectorAll('.hide-me').forEach(elem => {
+                elem.style.visibility = 'hidden';
+            })
+
+
             // show index2
-            // document.getElementById('index2').style.display = "block";
+            //document.getElementById('index2').style.display = "block";
 
             //alert("you've been authenticated")
 
@@ -128,12 +136,7 @@ $(document).ready(
 
         } else {
             // USER NOT YET AUTHENTICATED
-            /*
-            $("#go").show();
-            $("#go").on('click', function() {
-                authorizeUser();
-            });
-            */
+            //document.getElementById('hide-me').style.display = "block";
         }
     }
 );
