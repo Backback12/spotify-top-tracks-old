@@ -1,6 +1,8 @@
+SPOTIFY_CLIENT_ID = "0477e88f92c641fda1fb6e5fdbe5af37"
+SPOTIFY_REDIRECT_URI = "http://127.0.0.1:5500/"
+
 function authorizeUser() {
-    //var scopes = 'playlist-read-private playlist-modify-private playlist-modify-public';
-    const scopesList = [//'ugc-image-upload',
+    /*const scopesList = [//'ugc-image-upload',
                 //'user-read-recently-played',
                 'user-top-read',
                 //'user-read-playback-position',
@@ -14,18 +16,20 @@ function authorizeUser() {
                 //'playlist-read-private',
                 //'playlist-read-collaborative',
                 //'user-follow-modify',
-                'user-follow-read',
+                //'user-follow-read',
                 //'user-library-modify',
-                'user-library-read',
+                //'user-library-read',
                 //'user-read-email',
-                //'user-read-private'];
-    var scopes = scopesList.join(' ');
-    //var scopes = string.concat()
+                //'user-read-private'
+            ];*/
+    //var scopes = scopesList.join(' ');
+    var scopes = 'user-top-read';
 
     var url = 'https://accounts.spotify.com/authorize?client_id=' + SPOTIFY_CLIENT_ID +
         '&response_type=token' +
         '&scope=' + encodeURIComponent(scopes) +
-        '&redirect_uri=' + encodeURIComponent(SPOTIFY_REDIRECT_URI);
+        '&redirect_uri=' + encodeURIComponent(SPOTIFY_REDIRECT_URI) +
+        '&show_dialog=true';
     document.location = url;
 }
 
@@ -42,21 +46,52 @@ function parseArgs() {
     return args;
 }
 
-function getSpotify(url, data=null, callback=sendOutput) {
+function getSpotify(url, callback=sendOutput) {
     url = "https://api.spotify.com/v1" + url
     $.ajax(url, {
         dataType: 'json',
-        data: data,
+        //data: null,
         headers: {
             'Authorization': 'Bearer ' + accessToken
         },
         success: function(r) {
-            callback(r, true);
+            callback(r);
         },
         error: function(r) {
-            callback(r, true);
+            callback(r);
         }
     });
+}
+
+topTracks = [];
+topArtists = [];
+
+function getTopTracks() {
+    getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'short_term', 
+    function(res) {topTracks[0] = res;})
+
+    getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'medium_term', 
+    function(res) {topTracks[1] = res;})
+
+    getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'long_term', 
+    function(res) {topTracks[2] = res;})
+}
+function getTopArtists() {
+    getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'short_term', 
+    function(res) {topArtists[0] = res;})
+
+    getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'medium_term', 
+    function(res) {topArtists[1] = res;})
+
+    getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'long_term', 
+    function(res) {topArtists[2] = res;})
+}
+
+
+
+
+function generateImage() {
+    
 }
 
 
