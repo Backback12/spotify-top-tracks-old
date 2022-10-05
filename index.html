@@ -16,7 +16,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
         <script src="dist/script.js"></script>
-        
+
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2492891866286091"
      crossorigin="anonymous"></script>
         <!-- <style>
@@ -38,9 +38,6 @@
             }
         </style> -->
         <style>
-          body {
-            padding-top: 5rem;
-          }
           .starter-template {
             padding: 3rem 1.5rem;
             text-align: center;
@@ -56,44 +53,31 @@
                 <button id="AuthorizeButton" class="button" onclick=authorizeUser() type="button">Authorize User</button>
             </div>
         </div>-->
-<nav class="navbar navbar-expand navbar-light bg-light justify-content-center">
-  <a class="navbar-brand" style="padding: 8px 16px;" href="#" >Top Tracks
-  </a>
-  <a class="navbar-item" style="padding: 8px 16px;">
-    <a class="nav-link" href="#">aaaaaa</a>
-  </a>
-  <a class="navbar-item" style="padding: 8px 16px;">
+<ul class="navbar navbar-dark bg-dark nav-fill" style="padding: 8px 16px">
+  <a class="navbar-brand" style="padding: 8px 16px;" href="#" >Top Tracks</a>
+  <li class="navbar-item">
+    <a class="nav-link" style="color: white;" href="#">About</a>
+  </li>
+  <li class="navbar-item">
+    <a class="nav-link" style="color: white;" href="#">Privacy Policy</a>
+  </li>
+  <li class="navbar-item">
+    <a class="nav-link" style="color: white;" href="#">Contact</a>
+  </li>
+  <a class="navbar-item" href="#"  style="padding: 8px 16px;">
     <img src="images/Spotify_Logo_RGB_Green.png" width="100" height="30" alt="">
   </a>
-</nav>
+</ul>
 
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Always expand</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 <!-- Header / Home-->
+<main class="row-featurette container" id="home">
+  <div class="container row featurette text-center" style="height: 50vh;">
+    <h1 class="align-middle">Top Tracks</h1>
+    <p><button class="btn btn-primary btn-outline-light" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954; outline-color: black;">LOG IN</button></p>
+  </div>
 <!-- <header class="w3-display-container w3-wide bgimg" id="home"> -->
-  <main class="container" id="home">
-    <div class="text-center">
-      <h1>Top Tracks</h1>
-      <p><button class="btn btn-primary" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954; outline-color: black;">LOG IN</button></p>
-    </div>
 
-
-    <div class="featurette-dividor"></div>
+    <hr class="featurette-dividor"></hr>
 
     <!-- About App Section -->
     <div class="row featurette" id="about">
@@ -107,7 +91,7 @@
       </div>
     </div>
 
-    <div class="featurette-dividor"></div>
+    <hr class="featurette-dividor"></hr>
 
     <!-- Privacy Settings Information -->
     <div class="w3-container w3-padding-64 w3-green w3-center" id="privacy">
@@ -122,54 +106,7 @@
 
   </main>
   
-  <!-- Navbar (sticky bottom) -->
-  <!-- <div class="w3-top">
-    <div style="display: flex;" class="w3-bar w3-black w3-center w3-padding w3-opacity-min w3-hover-opacity-off">
-      <a href="#home" style="width:33.3%;" class="w3- w3-bar-item w3-button w3-hover-green">Log In</a>
-      <a href="#about" style="width:33.3%" class="w3-bar-item w3-button">About</a>
-      <a href="http://www.spotify.com/" style="width:33.3%;" class="w3-bar-item w3-button">
-        <img style="height: 1.5em; width: auto;" src="/images/Spotify_Logo_RGB_Green.png">
-      </a>
-    </div>
-  </div> -->
-  <!--<div class="navbar">
-    <a>Log In</a>
-    <a>About</a>
-    <a style="float:right; height:100%"><img style="width: 30%;" src="/images/Spotify_Logo_RGB_Green.png"></a>
-  </div>-->
   
-  
-  
-  <!-- RSVP section -->
-  <div class="w3-container w3-padding-64 w3-pale-red w3-center w3-wide" id="rsvp">
-    <h1>HOPE YOU CAN MAKE IT!</h1>
-    <p class="w3-large">Kindly Respond By January, 2017</p>
-    <p class="w3-xlarge">
-      <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-round w3-red w3-opacity w3-hover-opacity-off" style="padding:8px 60px">RSVP</button>
-    </p>
-  </div>
-  
-  <!-- RSVP modal -->
-  <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-opacity" style="padding:32px;max-width:600px">
-      <div class="w3-container w3-white w3-center">
-        <h1 class="w3-wide">CAN YOU COME?</h1>
-        <p>We really hope you can make it.</p>
-        <form>
-          <input class="w3-input w3-border" type="text" placeholder="Name(s)" name="name">
-        </form>
-        <p><i>Sincerely, John & Jane</i></p>
-        <div class="w3-row">
-          <div class="w3-half">
-            <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block w3-green">Going</button>
-          </div>
-          <div class="w3-half">
-            <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block w3-red">Can't come</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   
   <!-- Footer -->
   <footer class="w3-center w3-black w3-padding-16">
