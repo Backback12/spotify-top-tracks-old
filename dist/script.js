@@ -117,8 +117,9 @@ $(document).ready(
             //$("AuthButton").hide()
 
             // Hide Index1
-            document.getElementById('index1').style.display = "none";
-            document.getElementById('index2').style.display = "block";
+            // document.getElementById('index1').style.display = "none";
+            // show index2
+            // document.getElementById('index2').style.display = "block";
 
             //alert("you've been authenticated")
 
