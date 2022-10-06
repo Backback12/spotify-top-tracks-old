@@ -1,6 +1,5 @@
 SPOTIFY_CLIENT_ID = "0477e88f92c641fda1fb6e5fdbe5af37"
 SPOTIFY_REDIRECT_URI = "https://backback12.github.io/spotify-top-tracks/"
-SPOTIFY_REDIRECT_URI = "http://127.0.0.1:5500/"
 
 function authorizeUser() {
     /*const scopesList = [//'ugc-image-upload',
