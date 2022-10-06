@@ -3,7 +3,11 @@
 <head>
     <title>Spotify Album Viewer</title>
     <meta charset="UTF-8">
+    <meta name="description" content="Get your Spotify Top 20">
+    <meta name="keywords" content="Spotify, API, Top 20">
+    <meta name="author" content="Connor Pagtakhan">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway"> -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica"> -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
@@ -66,17 +70,17 @@
 </nav>
 
 <!-- Header / Home-->
-<main class="row-featurette container hide-me">
-    <div class="container row featurette text-center" style="width: 100vw; height: 90vh;">
+<main class="row-featurette container">
+    <div class="container row featurette text-center" style="width: 100vw; height: 60vh;">
         <p><div><h1 style="font-size: 60px;"><b>Top Tracks</b></h1></p>
-        <p><button class="btn btn-primary btn-outline-light" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">Log in with Spotify</button></p>
+        <p><button class="btn btn-primary btn-outline-light hide-me" onclick="authorizeUser()" style="padding:8px 60px; background-color: #1db954;">Log in with Spotify</button></p>
         </div>
     </div>
 
     <hr class="featurette-dividor"></hr>
 
     <!-- About App Section -->
-    <div class="row featurette" id="about">
+    <div class="row featurette hide-me" id="about">
         <h1><b>About</b></h1>
         <div>
             <p><br>
@@ -102,10 +106,10 @@
         </div>
     </div>
 
-    <hr class="featurette-dividor"></hr>
+    <hr class="featurette-dividor hide-me"></hr>
 
     <!-- Privacy Policy Information -->
-    <div class="row featurette" id="privacy">
+    <div class="row featurette hide-me" id="privacy">
         <h1><b>Privacy Policy</b></h1>
         <div>
             <p><br>
@@ -122,6 +126,12 @@
         </div>
     </div>
 
+    <div class="featurette show-me text-center" style="display: none;">
+        <canvas id="canvas" width="300" height="600" style="border: 4px black; background-color: red;">
+            Sorry, your browser does not support JavaScript: Canvas
+        </canvas>
+    </div>
+
     <hr class="featurette-dividor"></hr>
 
     <!-- Footer -->
@@ -133,7 +143,6 @@
         <p>Made by <a href="https://google.com/" title="bruh" target="_blank" class="w3-hover-text-green">Connor Pagtakhan</a></p>
     </footer>
 </main>
-
 
 </body>
 

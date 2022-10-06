@@ -65,33 +65,52 @@ function getSpotify(url, callback=sendOutput) {
 
 topTracks = [];
 topArtists = [];
+readyState = 0;
 
-function getTopTracks() {
+function getUserTop() {
     getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'short_term', 
-    function(res) {topTracks[0] = res;})
+    function(res) {topTracks[0] = res; readyState++})
 
     getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'medium_term', 
-    function(res) {topTracks[1] = res;})
+    function(res) {topTracks[1] = res; readyState++})
 
     getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'long_term', 
-    function(res) {topTracks[2] = res;})
-}
-function getTopArtists() {
+    function(res) {topTracks[2] = res; readyState++})
+
     getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'short_term', 
-    function(res) {topArtists[0] = res;})
+    function(res) {topArtists[0] = res; readyState++})
 
     getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'medium_term', 
-    function(res) {topArtists[1] = res;})
+    function(res) {topArtists[1] = res; readyState++})
 
     getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'long_term', 
-    function(res) {topArtists[2] = res;})
+    function(res) {topArtists[2] = res; readyState++})
 }
-
-
 
 
 function generateImage() {
-    
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let img = document.createElement("img");
+    img.src = "images/paper.jpg";
+    //document.body.appendChild(img);
+
+
+    const imgWidth = 2000;
+    const imgHeight = 1333;
+    const canvasWidth = 300;
+    const canvasHeight = 600;
+
+    img.addEventListener("load", () => {
+        ctx.drawImage(img, 
+            - Math.random() * (imgWidth - canvasWidth),     // random x
+            - Math.random() * (imgHeight - canvasHeight));  // random y
+
+        //ctx.font = '50px serif';
+        // -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        ctx.fillText("Hello my world", 150, 300);
+    });
 }
 
 
@@ -123,6 +142,11 @@ $(document).ready(
             // hide all hide-me elements
             document.querySelectorAll('.hide-me').forEach(elem => {
                 elem.style.visibility = 'hidden';
+                elem.style.display = 'none';
+            })
+            document.querySelectorAll('.show-me').forEach(elem => {
+                elem.style.visibility = 'visible';
+                elem.style.display = 'block';
             })
 
 
@@ -131,8 +155,11 @@ $(document).ready(
 
             //alert("you've been authenticated")
 
-            getTopTracks()
-            getTopArtists()
+            // getTopTracks()
+            // getTopArtists()
+            getUserTop();
+
+            generateImage();
 
         } else {
             // USER NOT YET AUTHENTICATED
