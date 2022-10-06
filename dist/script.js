@@ -1,5 +1,6 @@
 SPOTIFY_CLIENT_ID = "0477e88f92c641fda1fb6e5fdbe5af37"
 SPOTIFY_REDIRECT_URI = "https://backback12.github.io/spotify-top-tracks/"
+SPOTIFY_REDIRECT_URI = "http://127.0.0.1:5500/"
 
 function authorizeUser() {
     /*const scopesList = [//'ugc-image-upload',
@@ -87,29 +88,42 @@ function getUserTop() {
     function(res) {topArtists[2] = res; readyState++})
 }
 
-
-function generateImage() {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    let img = document.createElement("img");
-    img.src = "images/paper.jpg";
-    //document.body.appendChild(img);
-
-
+/* 
+ * generateReceipt
+ * 
+ * Practicing and testing program capabilities
+ * 
+ * Massive inspiration from Receiptify
+ *      https://receiptify.herokuapp.com/
+ *      https://github.com/michellexliu/receiptify
+ * 
+ */
+function generateReceipt() {
     const imgWidth = 2000;
     const imgHeight = 1333;
     const canvasWidth = 300;
     const canvasHeight = 600;
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let img = document.createElement("img");
+    img.src = "lib/paper.jpg";
+    //document.body.appendChild(img);
+    
 
     img.addEventListener("load", () => {
         ctx.drawImage(img, 
             - Math.random() * (imgWidth - canvasWidth),     // random x
             - Math.random() * (imgHeight - canvasHeight));  // random y
 
-        //ctx.font = '50px serif';
-        // -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        ctx.fillText("Hello my world", 150, 300);
+        //ctx.font = "20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+        ctx.font = "24px 'Merchant Copy', 'Courier new', 'Consolas', 'Monaco', sans-serif"
+        ctx.textAlign = "center";
+        ctx.fillText("Shut the fuck up", 150, 100);
+        ctx.fillText("------------------------------", 150, 180);
+        ctx.fillText("Nobody cares about", 150, 300);
+        ctx.fillText("your taste in music", 150, 320);
     });
 }
 
@@ -159,7 +173,7 @@ $(document).ready(
             // getTopArtists()
             getUserTop();
 
-            generateImage();
+            generateReceipt();
 
         } else {
             // USER NOT YET AUTHENTICATED
