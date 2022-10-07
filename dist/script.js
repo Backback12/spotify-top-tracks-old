@@ -119,7 +119,7 @@ function generateReceipt() {
         //ctx.font = "20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
         ctx.font = "24px 'Merchant Copy', 'Courier new', 'Consolas', 'Monaco', sans-serif"
         ctx.textAlign = "center";
-        ctx.fillText("Shut the fuck up", 150, 100);
+        ctx.fillText("Shut up", 150, 100);
         ctx.fillText("------------------------------", 150, 180);
         ctx.fillText("Nobody cares about", 150, 300);
         ctx.fillText("your taste in music", 150, 320);
