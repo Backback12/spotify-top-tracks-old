@@ -46,9 +46,27 @@ function parseArgs() {
     return args;
 }
 
-function getSpotify(url, callback=sendOutput) {
-    url = "https://api.spotify.com/v1" + url
-    $.ajax(url, {
+function getSpotify(url) {
+    return new Promise((resolve, reject) => {
+        $.ajax("https://api.spotify.com/v1" + url, {
+            dataType: 'json',
+            //data: null,
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            },
+            success: function(r) {
+                // console.log("??" + JSON.stringify(r));
+                resolve(r);
+            },
+            error: function(err) {
+                reject(err);
+            }
+        })
+    })
+}
+/*
+function getSpotify(url, callback) {javasc
+    $.ajax("https://api.spotify.com/v1" + url, {
         dataType: 'json',
         //data: null,
         headers: {
@@ -60,17 +78,130 @@ function getSpotify(url, callback=sendOutput) {
         error: function(r) {
             callback(r);
         }
-    });
+    })
+}*/
+
+// topTracks = [];
+// topArtists = [];
+// readyState = 0;
+
+function loadUserData() {
+    return new Promise((resolve, reject) => {
+        var userData = {};
+        const url = "/me/top/{0}?limit=20&offset=0&time_range={1}";
+
+        /*getSpotify(getURL(0, 0))
+        .then(data => {
+            userData['ts'] = data; 
+            return getSpotify(getURL(0, 1))
+        })
+        .then(data => {
+            userData['tm'] = data; 
+            return getSpotify(getURL(0, 2))
+        })
+        .then(data => {
+            userData['tl'] = data;  
+            return getSpotify(getURL(1, 0))
+        })
+        .then(data => {
+            userData['as'] = data; 
+            return getSpotify(getURL(1, 1))
+        })
+        .then(data => {
+            userData['am'] = data;
+            return getSpotify(getURL(1, 2))
+        })
+        .then(data => {
+            userData['al'] = data; 
+            return getSpotify("/me")
+        })
+        .then(data => {
+            userData['user'] = data; 
+            resolve(userData);
+        })
+        .catch(error => {
+            reject(error);
+        })*/
+
+        getPromises = [];
+        for (let i = 0; i < 6; i++) {
+            getPromises.push(getSpotify(getURL(Math.floor(i/3), i%3)))
+        }
+        getPromises.push(getSpotify("/me"));
+        
+        Promise.all(getPromises).then((allData) => {
+            // adds "term" and "type" to obj?
+            // keeps order so nah
+
+            resolve(allData);
+        })
+    })
 }
 
-topTracks = [];
-topArtists = [];
-readyState = 0;
+function getURL(dataType, timeRange) {
+    dataTypes = ['tracks', 'artists'];
+    timeRanges = ['short_term', 'medium_term', 'long_term'];
 
+    return `/me/top/${dataTypes[dataType]}?limit=20&offset=0&time_range=${timeRanges[timeRange]}`
+}
+
+
+
+
+
+
+
+/*
+function loadUserData() {
+
+    return new Promise((resolve, reject) => {
+        var userData = []; 
+
+        console.log("starting");
+        getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'short_term')
+        .then(function(data) {
+            console.log("next");
+            userData.push(data);
+            getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'medium_term')
+        })
+        .then(function(data) {
+            userData.push(data);
+            getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'long_term')
+        })
+        .then(function(data) {
+            userData.push(data);
+            getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'short_term')
+        })
+        .then(function(data) {
+            userData.push(data);
+            getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'medium_term')
+        })
+        .then(function(data) {
+            userData.push(data);
+            getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'long_term')
+        })
+        .then(function(data) {
+            userData.push(data);
+            getSpotify("/me")
+            console.log("finally");
+        })
+        .then(function(data) {
+            userData.push(data);
+
+            resolve(userData);
+        })
+        .catch((error) => {
+            //console.log("error");
+            reject(error);
+        })
+    })
+}
+*/
+/* // Old function without Promises
 function getUserTop() {
     getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'short_term', 
     function(res) {topTracks[0] = res; readyState++})
-
+    
     getSpotify("/me/top/tracks?limit=20&offset=0&time_range=" + 'medium_term', 
     function(res) {topTracks[1] = res; readyState++})
 
@@ -85,7 +216,10 @@ function getUserTop() {
 
     getSpotify("/me/top/artists?limit=20&offset=0&time_range=" + 'long_term', 
     function(res) {topArtists[2] = res; readyState++})
-}
+
+    getSpotify("/me", 
+    function(res) {userInfo = res;})
+}*/
 
 /* 
  * generateReceipt
@@ -97,34 +231,78 @@ function getUserTop() {
  *      https://github.com/michellexliu/receiptify
  * 
  */
-function generateReceipt() {
-    const imgWidth = 2000;
-    const imgHeight = 1333;
-    const canvasWidth = 300;
-    const canvasHeight = 600;
+var outttt;
+function generateReceipt(data) {
+    outttt = data;
+    const dataType = "artists";
+    // const dataType = "tracks";
+    const imgWidth = 2000;  // paper width
+    const imgHeight = 1333; // paper height
+    const canvasWidth = 400;    //
+    const canvasHeight = 1333;   // 
 
     const canvas = document.getElementById('canvas');
+    // canvas.style.height = "900px";
+    // canvas.style.width = "300px";
     const ctx = canvas.getContext('2d');
+    // ctx.style.height = canvasHeight;
 
     let img = document.createElement("img");
     img.src = "lib/paper.jpg";
-    //document.body.appendChild(img);
-    
 
     img.addEventListener("load", () => {
         ctx.drawImage(img, 
-            - Math.random() * (imgWidth - canvasWidth),     // random x
-            - Math.random() * (imgHeight - canvasHeight));  // random y
-
+            - Math.random() * (imgWidth - canvasWidth),     // random from paper img
+            - Math.random() * (imgHeight - canvasHeight));  // random from paper img
+        
         //ctx.font = "20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
         ctx.font = "24px 'Merchant Copy', 'Courier new', 'Consolas', 'Monaco', sans-serif"
-        ctx.textAlign = "center";
-        ctx.fillText("Shut up", 150, 100);
-        ctx.fillText("------------------------------", 150, 180);
-        ctx.fillText("Nobody cares about", 150, 300);
-        ctx.fillText("your taste in music", 150, 320);
+        ctx.textAlign = "center"; //"left";
+        ctx.fillStyle = "#202030";
+        ctx.fillText(`${data[6].display_name.toUpperCase()}`, 200, 60);
+        ctx.fillText("------------------------------", 200, 90);
+        ctx.fillText("----------------------------------------", 200, 100);
+        // ctx.fillText("Nobody cares about", 150, 300);
+        // ctx.fillText("your taste in music", 150, 320);
+        
+        // 30 character width seems good??
+
+        let testTrack = "ThisIsTheTestTrackName!";  // 23 characters
+        let testArtist = "ArtistNamesAreBigg";      // 18 characters
+        let testAlbum = "Playlist/AlbumNameBiggest";    // 25 characters
+        
+        
+        ctx.fillText("*Your past year's top songs*", 200, 120);
+        ctx.textAlign = "left";
+        
+        let cursorY = 160;
+
+        for (let i = 0; i < 10; i++) {
+            ctx.fillText((i+1).toString().padStart(2, '0'), 35, cursorY);
+
+            if (i == 2) {
+                data[2].items[i].name = testTrack;
+                data[2].items[i].artists[0].name = testArtist;
+            }
+
+
+            let lines = wrap(`${data[2].items[i].name} - ${data[2].items[i].artists[0].name}`, 25)  // 30 max character width
+            for (let j = 0; j < lines.length; j++) {
+                ctx.fillText(lines[j], 80, cursorY + j * 20);
+            }
+
+            cursorY += lines.length*20 + 5
+        }
+
+        // update height of reciept to cut off excess
+        // canvas.style.height=
     });
 }
+
+// Dynamic Width (Build Regex)
+const wrap = (s, w) => s.replace(
+    new RegExp(`(?![^\\n]{1,${w}}$)([^\\n]{1,${w}})\\s`, 'g'), '$1\n'
+).split("\n");
 
 
 $(document).ready(
@@ -170,9 +348,19 @@ $(document).ready(
 
             // getTopTracks()
             // getTopArtists()
-            getUserTop();
+            
+            var startTime = performance.now();
+            loadUserData()
+            .then(function(data) {
+                console.log("ya boy");
+                generateReceipt(data);
+                var endTime = performance.now();
+                console.log(`took ${endTime - startTime}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
 
-            generateReceipt();
 
         } else {
             // USER NOT YET AUTHENTICATED
