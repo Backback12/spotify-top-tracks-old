@@ -7,7 +7,7 @@ Generates top list of tracks and artists
 
 
 Pages format
-index.html
-index.js
-- tracks.html
-- tracks.js
+- index.html
+- index.js
+  - tracks.html
+  - tracks.js
